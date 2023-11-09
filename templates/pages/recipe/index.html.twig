@@ -8,9 +8,8 @@
 		{% if not recipes.items is same as ([]) %}
 			<h1>Mes recettes</h1>
 			<a href="{{path('recipe.new')}}" class="btn btn-primary">
-				Créer un ingrédient
+				Créer une recette
 			</a>
-
 
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-dismissible alert-primary">
@@ -45,12 +44,14 @@
 							<td>{{ recipe.price is not null ? recipe.price : 'N/A' }}</td>
 							<td>{{ recipe.difficulty is not null ? recipe.difficulty : 'N/A' }}</td>
 							<td>{{recipe.createdAt |date('d/m/Y')}}</td>
+
 							<td>
-								<a href="#" class="btn btn-info">Modifier</a>
+								<a href="{{path('recipe.edit', {id: recipe.id})}}" class="btn btn-info">Modifier</a>
 							</td>
 							<td>
-								<a href="#" class="btn btn-warning">Supprimer</a>
+								<a href="{{path('recipe.delete', {id: recipe.id})}}" class="btn btn-warning">Supprimer</a>
 							</td>
+
 						</tr>
 						{%endfor%}</tbody>
 				</tbody>

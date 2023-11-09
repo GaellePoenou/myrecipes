@@ -71,7 +71,7 @@ class IngredientController extends AbstractController
         return $this->render('pages/ingredient/new.html.twig', ['form' => $form->createView()]);
     }
     /**
-     * 
+     * This function is used to update an ingredient.
      * 
      */
     #[Route('/ingredient/{id}', name: 'ingredient.edit', methods: ['GET', 'POST'])]
@@ -96,7 +96,10 @@ class IngredientController extends AbstractController
         }
         return $this->render('pages/ingredient/edit.html.twig', ['form' => $form->createView()]);
     }
-
+    /**
+     * 
+     * This function is used to delete an ingredient.
+     */
     #[Route('/ingredient/{id}/delete', name: 'ingredient.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Ingredient $ingredient): Response
     {
