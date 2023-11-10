@@ -2,12 +2,14 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Ingredient;
-use App\Entity\Recipe;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Faker\Generator;
 use Faker\Factory;
+use App\Entity\User;
+use Faker\Generator;
+use App\Entity\Recipe;
+use App\Entity\Ingredient;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+
 
 class AppFixtures extends Fixture
 {
@@ -15,6 +17,8 @@ class AppFixtures extends Fixture
      * @var Generator
      */
     private Generator $faker;
+
+
     public function __construct()
     {
         $this->faker = Factory::create('fr_FR');
@@ -45,6 +49,17 @@ class AppFixtures extends Fixture
             }
             $manager->persist($recipe);
         }
-        $manager->flush();
+        for ($l = 1; $l <= 25; $l++) {
+            $user = new User();
+            $user->setFullName($this->faker->word);
+            $user->setPseudo(mt_rand(0, 1) === 1 ? $this->faker->firstName() : null);
+            $user->setEmail($this->faker->email);
+            $user->setPlainPassword('password');
+            $user->setRoles(['ROLE_USER']);
+
+            $manager->persist($user);
+
+            $manager->flush();
+        }
     }
 }
